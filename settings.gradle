@@ -1,0 +1,3 @@
+rootProject.name = 'Dantsy79'
+include 'hw01-gradle'
+
