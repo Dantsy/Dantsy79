@@ -3,7 +3,6 @@ import com.google.common.collect.Collections2;
 import com.google.common.base.Predicate;
 import java.util.Arrays;
 import java.util.Collection;
-
 public class HelloOtus {
     public static void main(String[] args) {
         Collection<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
