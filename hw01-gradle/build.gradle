@@ -16,9 +16,7 @@ dependencies {
 }
 jar {
     manifest {
-        attributes(
-                'Main-Class': 'HelloOtus'
-        )
+        attributes('Main-Class':'hw1.HelloOtus')
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
