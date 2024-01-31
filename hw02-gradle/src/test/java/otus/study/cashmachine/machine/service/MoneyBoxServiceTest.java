@@ -83,7 +83,7 @@ public class MoneyBoxServiceTest {
 
     @Test
     void getMoney_throwsExceptionForNonMultipleAmount() {
-        int chargeSum = 5555; // Не кратно минимальному номиналу
+        int chargeSum = 5555;
         assertThrows(IllegalStateException.class, () -> moneyBoxService.getMoney(moneyBox, chargeSum));
     }
 

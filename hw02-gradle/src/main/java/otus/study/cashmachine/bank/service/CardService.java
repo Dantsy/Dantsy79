@@ -15,4 +15,5 @@ public interface CardService {
     BigDecimal putMoney(String number, String pin, BigDecimal sum);
 
     BigDecimal getBalance(String number, String pin);
+
 }

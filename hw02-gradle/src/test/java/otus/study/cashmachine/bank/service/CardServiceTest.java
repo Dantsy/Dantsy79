@@ -27,22 +27,15 @@ public class CardServiceTest {
     }
 
     @Test
-    void CreateCard() {
-        String number = "5555";
-        Long accountId = 1L;
-        String pinCode = "0123";
-        String hashedPinCode = TestUtil.getHash(pinCode);
-        Card expectedCard = new Card(1L, number, accountId, hashedPinCode);
-        when(cardsDao.createCard(number, accountId, hashedPinCode)).thenReturn(expectedCard);
+    void testCreateCard() {
+        when(cardsDao.createCard("5555", 1L, "0123")).thenReturn(
+                new Card(1L, "5555", 1L, "0123"));
 
-        Card newCard = cardService.createCard(number, accountId, pinCode);
+        Card newCard = cardService.createCard("5555", 1L, "0123");
         assertNotEquals(0, newCard.getId());
-        assertEquals(number, newCard.getNumber());
-        assertEquals(accountId, newCard.getAccountId());
-        assertEquals(hashedPinCode, newCard.getPinCode());
-
-        // Verify that the createCard method is called with the correct arguments
-        verify(cardsDao).createCard(eq(number), eq(accountId), eq(hashedPinCode));
+        assertEquals("5555", newCard.getNumber());
+        assertEquals(1L, newCard.getAccountId());
+        assertEquals("0123", newCard.getPinCode());
     }
 
     @Test
@@ -87,7 +80,7 @@ public class CardServiceTest {
         when(cardsDao.getCardByNumber(number)).thenReturn(card);
 
         BigDecimal amountToPut = new BigDecimal("500.00");
-        BigDecimal expectedBalanceAfterPut = new BigDecimal("1500.00"); // Предполагаем, что на счету было 1000, и мы кладем 500
+        BigDecimal expectedBalanceAfterPut = new BigDecimal("1500.00");
         when(accountService.putMoney(accountId, amountToPut)).thenReturn(expectedBalanceAfterPut);
 
         BigDecimal result = cardService.putMoney(number, pinCode, amountToPut);

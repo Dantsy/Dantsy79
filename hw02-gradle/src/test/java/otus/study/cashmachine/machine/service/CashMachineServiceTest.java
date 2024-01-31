@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import otus.study.cashmachine.bank.data.Card;
 import otus.study.cashmachine.bank.service.CardService;
 import otus.study.cashmachine.machine.data.CashMachine;
 import otus.study.cashmachine.machine.data.MoneyBox;
@@ -18,6 +19,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static otus.study.cashmachine.TestUtil.getHash;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -29,8 +31,6 @@ class CashMachineServiceTest {
     @Mock
     private MoneyBoxService moneyBoxService;
 
-    @Mock
-    private MoneyBox moneyBox;
 
     @InjectMocks
     private CashMachineServiceImpl cashMachineService;
@@ -51,32 +51,47 @@ class CashMachineServiceTest {
         BigDecimal amount = new BigDecimal("500.00");
         List<Integer> expectedNotes = Arrays.asList(1, 0, 1, 0);
 
-        // Mock the behavior of the cardService and moneyBoxService
         when(cardService.getMoney(cardNumber, pin, amount)).thenReturn(amount);
         when(moneyBoxService.getMoney(cashMachine.getMoneyBox(), amount.intValue())).thenReturn(expectedNotes);
 
-        // Call the method under test
         List<Integer> actualNotes = cashMachineService.getMoney(cashMachine, cardNumber, pin, amount);
 
-        // Verify the results
         assertEquals(expectedNotes, actualNotes);
         verify(cardService).getMoney(cardNumber, pin, amount);
         verify(moneyBoxService).getMoney(cashMachine.getMoneyBox(), amount.intValue());
     }
 
     @Test
+    void putMoney() {
+        String number = "8657";
+        String pin = "7858";
+        List<Integer> notes = List.of(1, 2, 3, 4);
+        BigDecimal amount = new BigDecimal(5100);
+        CashMachine machine = new CashMachine(new MoneyBox(1, 0, 0, 1));
+        Card card = new Card(1, number, 1L, getHash(pin));
+
+        when(cardService.putMoney(eq(number), eq(pin), any())).thenReturn(amount);
+        
+        doNothing().when(moneyBoxService).putMoney(any(), anyInt(), anyInt(), anyInt(), anyInt());
+
+        BigDecimal expectedPutMoneyAmount = new BigDecimal(8900);
+        when(cardService.putMoney(number, pin, expectedPutMoneyAmount)).thenReturn(expectedPutMoneyAmount);
+
+        BigDecimal addMoney = cashMachineService.putMoney(machine, number, pin, notes);
+
+        assertEquals(addMoney, expectedPutMoneyAmount);
+        verify(cardService).getBalance(number, pin);
+    }
+    @Test
     void checkBalance() {
         String cardNumber = "1234567890123456";
         String pin = "1234";
         BigDecimal expectedBalance = new BigDecimal("5000.00"); // Example expected balance
 
-        // Mock the behavior of the cardService
         when(cardService.getBalance(cardNumber, pin)).thenReturn(expectedBalance);
 
-        // Call the method under test
         BigDecimal actualBalance = cashMachineService.checkBalance(cashMachine, cardNumber, pin);
 
-        // Verify the results
         assertEquals(expectedBalance, actualBalance);
         verify(cardService).getBalance(cardNumber, pin);
     }
@@ -87,13 +102,10 @@ class CashMachineServiceTest {
         String oldPin = "1234";
         String newPin = "5678";
 
-        // Mock the behavior of the cardService
         when(cardService.cnangePin(cardNumber, oldPin, newPin)).thenReturn(true);
 
-        // Call the method under test
         boolean result = cashMachineService.changePin(cardNumber, oldPin, newPin);
 
-        // Verify the results
         assertTrue(result);
         verify(cardService).cnangePin(cardNumber, oldPin, newPin);
     }
@@ -104,17 +116,13 @@ class CashMachineServiceTest {
         String oldPin = "1234";
         String newPin = "5678";
 
-        // Mock the behavior of the cardService
         doAnswer(invocation -> {
-            // Custom logic for the answer
             Object[] args = invocation.getArguments();
             return args[1].equals(oldPin) && args[2].equals(newPin);
         }).when(cardService).cnangePin(anyString(), anyString(), anyString());
 
-        // Call the method under test
         boolean result = cashMachineService.changePin(cardNumber, oldPin, newPin);
 
-        // Verify the results
         assertTrue(result);
         verify(cardService).cnangePin(cardNumber, oldPin, newPin);
     }
