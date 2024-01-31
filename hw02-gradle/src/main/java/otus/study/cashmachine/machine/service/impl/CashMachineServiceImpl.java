@@ -41,12 +41,17 @@ public class CashMachineServiceImpl implements CashMachineService {
         cardService.getBalance(cardNum, pin);
 
         List<Integer> arrangedNotes = new ArrayList<>(notes);
-        for (int i = 0; i < 4 - arrangedNotes.size(); i++) {
+        for (int i = 0; i < 4 - arrangedNotes.size(); i ++) {
             arrangedNotes.add(0);
         }
 
         moneyBoxService.putMoney(machine.getMoneyBox(), arrangedNotes.get(3), arrangedNotes.get(2), arrangedNotes.get(1), arrangedNotes.get(0));
-        return cardService.putMoney(cardNum, pin, new BigDecimal(arrangedNotes.get(3) * 100 + arrangedNotes.get(2) * 500 + arrangedNotes.get(1) * 1000 + arrangedNotes.get(0) * 5000));
+        return cardService.putMoney(cardNum, pin, new BigDecimal(
+                arrangedNotes.get(3) * 100 +
+                        arrangedNotes.get(2) * 500 +
+                        arrangedNotes.get(1) * 1000 +
+                        arrangedNotes.get(0) * 5000
+        ));
     }
 
     @Override

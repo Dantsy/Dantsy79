@@ -22,7 +22,7 @@ public class Cards {
     static Long idSequence = 10L;
 
     public static Long getNextId() {
-        idSequence++;
+        idSequence ++;
         return idSequence;
     }
 }

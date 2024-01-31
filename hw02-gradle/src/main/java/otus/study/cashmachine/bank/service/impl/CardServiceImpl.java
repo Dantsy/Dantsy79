@@ -12,15 +12,16 @@ import java.util.HexFormat;
 
 
 public class CardServiceImpl implements CardService {
+
     AccountService accountService;
 
     CardsDao cardsDao;
+
 
     public CardServiceImpl(final AccountService accountService, final CardsDao cardsDao) {
         this.accountService = accountService;
         this.cardsDao = cardsDao;
     }
-
     @Override
     public Card createCard(String number, Long accountId, String pinCode) {
         return cardsDao.createCard(number, accountId, pinCode);
@@ -84,7 +85,7 @@ public class CardServiceImpl implements CardService {
         }
     }
 
-    public String getHash(String value) {
+    private String getHash(String value) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA1");
             digest.update(value.getBytes());

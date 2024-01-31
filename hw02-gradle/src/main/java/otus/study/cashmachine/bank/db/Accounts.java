@@ -19,8 +19,7 @@ public class Accounts {
     }
 
     public static Long getNextId() {
-        idSequence++;
+        idSequence ++;
         return idSequence;
     }
-
 }
