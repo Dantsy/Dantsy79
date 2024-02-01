@@ -20,10 +20,7 @@ test {
 
 task runWithBiggerHeap(type: JavaExec) {
     main = 'calculator.CalcDemo'
-
     args = ['arg1', 'arg2']
-
     jvmArgs = ['-Xmx2g']
-
     classpath = sourceSets.main.runtimeClasspath
 }
