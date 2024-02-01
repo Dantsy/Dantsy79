@@ -4,7 +4,7 @@ package hw3;
 import java.util.ArrayList;
 import java.util.List;
 
-class Fruit {
+public class Fruit {
     double getWeight() {
         return 0.0;
     }
