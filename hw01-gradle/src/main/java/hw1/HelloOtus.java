@@ -1,6 +1,8 @@
-package HW1;
+package hw1;
+
 import com.google.common.collect.Collections2;
 import com.google.common.base.Predicate;
+
 import java.util.Arrays;
 import java.util.Collection;
 

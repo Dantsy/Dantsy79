@@ -10,8 +10,18 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // Зависимости для работы с JSON
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3' // или любая другая версия
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.3'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.13.3'
+    // Зависимость для работы с файлами
+    implementation 'commons-io:commons-io:2.11.0' // или любая другая версия
+    // Зависимость для работы с ProtoBuf
+    implementation 'com.google.protobuf:protobuf-java:3.21.1' // если вы хотите использовать ProtoBuf
+    // Зависимость для работы с Java Serialization
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'org.projectlombok:lombok:1.18.26'// если вы хотите использовать Gson для Java Serialization
 }
 
 test {

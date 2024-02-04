@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task runWithBiggerHeap(type: JavaExec) {
+    main = 'calculator.CalcDemo'
+    args = ['arg1', 'arg2']
+    jvmArgs = ['-Xmx2g']
+    classpath = sourceSets.main.runtimeClasspath
+}
