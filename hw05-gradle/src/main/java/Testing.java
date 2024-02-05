@@ -4,18 +4,18 @@ import Annotations.Test;
 
 public class Testing {
     @Before
-    public void setup() {
+    public void setUp() {
     }
 
-    @Test
+    @Annotations.Test
     public void testMethod1() {
     }
 
-    @Test
+    @Annotations.Test
     public void testMethod2() {
     }
 
     @After
-    public void cleanup() {
+    public void tearDown() {
     }
 }
