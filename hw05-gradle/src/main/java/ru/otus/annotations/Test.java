@@ -1,4 +1,4 @@
-package Annotations;
+package ru.otus.annotations;
 
 import java.lang.annotation.*;
 

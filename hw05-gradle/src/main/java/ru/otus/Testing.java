@@ -1,17 +1,19 @@
-import Annotations.After;
-import Annotations.Before;
-import Annotations.Test;
+package ru.otus;
+
+import ru.otus.annotations.After;
+import ru.otus.annotations.Before;
+import ru.otus.annotations.Test;
 
 public class Testing {
     @Before
     public void setUp() {
     }
 
-    @Annotations.Test
+    @Test
     public void testMethod1() {
     }
 
-    @Annotations.Test
+    @Test
     public void testMethod2() {
     }
 

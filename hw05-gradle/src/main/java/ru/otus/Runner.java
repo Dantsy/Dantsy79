@@ -1,6 +1,8 @@
-import Annotations.After;
-import Annotations.Before;
-import Annotations.Test;
+package ru.otus;
+
+import ru.otus.annotations.After;
+import ru.otus.annotations.Before;
+import ru.otus.annotations.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -61,6 +63,6 @@ public class Runner {
     }
 
     public static void main(String[] args) {
-        Runner.runTests("Testing");
+        Runner.runTests("ru.otus.Testing");
     }
 }
