@@ -27,22 +27,17 @@ public class Main {
         YAMLMapper yamlMapper = new YAMLMapper();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         try {
-            // Чтение файла sms.json
             String json = new String(Files.readAllBytes(Paths.get("C:\\Users\\dants\\Dantsy79\\hw08-gradle\\src\\main\\java\\Chat\\sms.json")));
-            // Десериализация JSON в Java объекты
             Root root = objectMapper.readValue(json, Root.class);
-            // Группировка по полю chat_sessions.messages.belong_number и сортировка сообщений по времени
             Map<String, List<ChatSession>> chatSessionsByNumber = root.getChatSessions().stream()
                     .collect(Collectors.groupingBy(chatSession -> chatSession.getMessages().get(0).getBelongNumber(),
                             Collectors.toList()));
-            // Сортировка сообщений внутри каждой группы по дате
             for (List<ChatSession> chatSessions : chatSessionsByNumber.values()) {
                 for (ChatSession chatSession : chatSessions) {
                     chatSession.getMessages().sort(Comparator.comparingLong(Chat.Message::getDate));
                 }
             }
 
-            // Вывод результата на консоль
             System.out.println("Starting to print chat sessions...");
             chatSessionsByNumber.forEach((number, sessions) -> {
                 System.out.println("Belong Number: " + number);
