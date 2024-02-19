@@ -1,0 +1,29 @@
+plugins {
+    id("java")
+}
+
+group = "org.example"
+version = "unspecified"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.3'
+    implementation 'org.apache.xmlbeans:xmlbeans:5.1.1'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy:4.0.2'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.13.3'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.3'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3'
+    implementation 'com.google.protobuf:protobuf-java:3.19.4'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
