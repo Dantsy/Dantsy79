@@ -1,4 +1,4 @@
-package Chat;
+package chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -27,14 +27,14 @@ public class Main {
         YAMLMapper yamlMapper = new YAMLMapper();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         try {
-            String json = new String(Files.readAllBytes(Paths.get("C:\\Users\\dants\\Dantsy79\\hw08-gradle\\src\\main\\java\\Chat\\sms.json")));
+            String json = new String(Files.readAllBytes(Paths.get("hw08-gradle\\src\\main\\java\\Chat\\sms.json")));
             Root root = objectMapper.readValue(json, Root.class);
             Map<String, List<ChatSession>> chatSessionsByNumber = root.getChatSessions().stream()
                     .collect(Collectors.groupingBy(chatSession -> chatSession.getMessages().get(0).getBelongNumber(),
                             Collectors.toList()));
             for (List<ChatSession> chatSessions : chatSessionsByNumber.values()) {
                 for (ChatSession chatSession : chatSessions) {
-                    chatSession.getMessages().sort(Comparator.comparingLong(Chat.Message::getDate));
+                    chatSession.getMessages().sort(Comparator.comparingLong(chat.Message::getDate));
                 }
             }
 
@@ -66,7 +66,7 @@ public class Main {
             List<MessageCSV> messageCSVList = new ArrayList<>();
             for (List<ChatSession> chatSessions : chatSessionsByNumber.values()) {
                 for (ChatSession chatSession : chatSessions) {
-                    for (Chat.Message message : chatSession.getMessages()) {
+                    for (chat.Message message : chatSession.getMessages()) {
                         messageCSVList.add(new MessageCSV(
                                 message.getBelongNumber(),
                                 dateFormat.format(message.getDate()),

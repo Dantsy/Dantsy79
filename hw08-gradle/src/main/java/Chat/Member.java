@@ -1,4 +1,4 @@
-package Chat;
+package chat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
