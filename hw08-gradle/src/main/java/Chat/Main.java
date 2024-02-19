@@ -27,7 +27,7 @@ public class Main {
         YAMLMapper yamlMapper = new YAMLMapper();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         try {
-            String json = new String(Files.readAllBytes(Paths.get("C:\\Users\\dants\\Dantsy79\\hw08-gradle\\src\\main\\java\\Chat\\sms.json")));
+            String json = new String(Files.readAllBytes(Paths.get("hw08-gradle\\src\\main\\java\\Chat\\sms.json")));
             Root root = objectMapper.readValue(json, Root.class);
             Map<String, List<ChatSession>> chatSessionsByNumber = root.getChatSessions().stream()
                     .collect(Collectors.groupingBy(chatSession -> chatSession.getMessages().get(0).getBelongNumber(),
