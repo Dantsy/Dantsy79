@@ -1,0 +1,10 @@
+
+FROM postgres:12
+
+ENV POSTGRES_PASSWORD=pwd
+ENV POSTGRES_USER=usr
+ENV POSTGRES_DB=demoDB
+
+EXPOSE 5430
+
+CMD ["postgres"]
