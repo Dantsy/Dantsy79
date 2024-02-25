@@ -1,0 +1,77 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jcenter.bintray.com/' }
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+ext {
+    Versions = [
+            gson: '2.8.9',
+            jackson: '2.13.3',
+            logback: '1.2.11',
+            hibernate: '5.6.7.Final',
+            flyway: '8.5.10',
+            postgresql: '42.3.6',
+            jetty: '11.0.9',
+            freemarker: '2.3.31',
+            h2: '2.1.210',
+            assertj: '3.22.0',
+            mockito: '4.5.1',
+            testcontainers: '1.17.1'
+    ]
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    implementation "ch.qos.logback:logback-classic:${Versions.logback}"
+    implementation "org.hibernate:hibernate-core:${Versions.hibernate}"
+    implementation "org.flywaydb:flyway-core:${Versions.flyway}"
+    implementation "org.postgresql:postgresql:${Versions.postgresql}"
+    implementation "com.google.code.gson:gson:${Versions.gson}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${Versions.jackson}"
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.0.0'
+    implementation 'org.slf4j:slf4j-log4j12:2.0.0-alpha6'
+
+    implementation "org.eclipse.jetty:jetty-servlet:${Versions.jetty}"
+    implementation "org.eclipse.jetty:jetty-server:${Versions.jetty}"
+    implementation "org.eclipse.jetty:jetty-webapp:${Versions.jetty}"
+    implementation "org.eclipse.jetty:jetty-security:${Versions.jetty}"
+    implementation "org.eclipse.jetty:jetty-http:${Versions.jetty}"
+    implementation "org.eclipse.jetty:jetty-io:${Versions.jetty}"
+    implementation "org.eclipse.jetty:jetty-util:${Versions.jetty}"
+    implementation "org.freemarker:freemarker:${Versions.freemarker}"
+
+    testImplementation "com.h2database:h2:${Versions.h2}"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:${Versions.junit}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${Versions.junit}"
+    testImplementation "org.assertj:assertj-core:${Versions.assertj}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${Versions.mockito}"
+
+    testImplementation "org.testcontainers:junit-jupiter:${Versions.testcontainers}"
+    testImplementation "org.testcontainers:postgresql:${Versions.testcontainers}"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+task prepareKotlinBuildScriptModel {
+
+}
